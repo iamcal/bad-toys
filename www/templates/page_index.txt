@@ -1,13 +1,46 @@
-INDEX!
+{include file='inc_head.txt'}
 
-<table border="1">
+<h1>Bad Toys</h1>
+
+<p>
+	Sort:
+{if $smarty.get.recent}
+	<b>Recent</b> | <a href="{$cfg.root_url}">Common</a>
+{else}
+	<a href="{$cfg.root_url}?recent=1">Recent</a> | <b>Common</b>
+{/if}
+</p>
+
+<table class="errors" width="100%">
 {foreach from=$rows item='row'}
         <tr>
                 <td>
-                        <span class="error">{$row.error|escape}</span><br />
+                        <span class="error"><a href="{$cfg.root_url}{$row.checksum}/">{$row.error|escape}</a></span><br />
+{if $row.script && $row.script != 'undefined'}
+			In {$row.script|escape}, line {$row.line}.
+{else}
+			Inline code, line {$row.line}.
+{/if}
+{if $row.num_ua_agent==1}
+{if $row.num_ua_version==1}
+			In {$row.latest.ua_simple|escape}.
+{else}
+			In {$row.num_ua_version} versions of {$row.latest.ua_agent|escape}.
+{/if}
+{else}
+			In {$row.num_ua_agent} browsers.
+{/if}
+{if $row.num_urls==1}
+			On {$row.latest.url|escape}.
+{else}
+			On {$row.num_urls} pages.
+{/if}
                 </td>
-                <td>{$row.num_logged}</td>
-        </tr>
+		<td>
+			<div class="num-errors">{$row.num_logged|number_format}</div>
+		</td>
+	</tr>
 {/foreach}
 </table>
 
+{include file='inc_foot.txt'}

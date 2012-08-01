@@ -43,7 +43,7 @@
 			$ua_vs = explode('.', $ua['agent_version']);
 			$ua_v = array_shift($ua_vs);
 			$ua_a = UcFirst($ua['agent']);
-			$ua_simple = "{$ua_a} {$ua_v}";
+			$ua_simple = strlen($ua_a) ? "{$ua_a} {$ua_v}" : "";
 
 			$errors[$checksum] = array(
 				'checksum'	=> $checksum,
@@ -64,6 +64,7 @@
 				'stacktrace'	=> AddSlashes($row['stacktrace']),
 				'before_load'	=> $row['before_load'] ? 1 : 0,
 				'ua'		=> AddSlashes($row['ua']),
+				'ua_agent'	=> AddSlashes($ua_a),
 				'ua_simple'	=> AddSlashes($ua_simple),
 				'client_ip'	=> AddSlashes($row['client_ip']),
 				'user_bcookie'	=> $row['user_bcookie'],
@@ -94,10 +95,30 @@
 			$day = date('Y-m-d', $d);
 
 			db_write("UPDATE js_errors SET num_logged=num_logged+$num, date_latest=$d, day_latest='$day' WHERE checksum='$checksum'");
+
+			update_summary($checksum);
 		}
 
 		$flat_ids = implode(',', $ids);
 		db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
 
 		return count($ids);
+	}
+
+
+
+
+	function update_summary($checksum){
+
+		list($num_urls)		= db_list(db_fetch("SELECT COUNT(DISTINCT url) FROM js_errors_events WHERE checksum='$checksum'"));
+		list($num_ua_agent)	= db_list(db_fetch("SELECT COUNT(DISTINCT ua_agent) FROM js_errors_events WHERE checksum='$checksum'"));
+		list($num_ua_version)	= db_list(db_fetch("SELECT COUNT(DISTINCT ua_simple) FROM js_errors_events WHERE checksum='$checksum'"));
+
+		db_update("js_errors", array(
+
+			'num_urls'		=> intval($num_urls),
+			'num_ua_agent'		=> intval($num_ua_agent),
+			'num_ua_version'	=> intval($num_ua_version),
+
+		), "checksum='$checksum'");
 	}

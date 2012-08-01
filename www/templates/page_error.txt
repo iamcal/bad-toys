@@ -1,0 +1,99 @@
+{include file='inc_head.txt'}
+
+<p class="topnav"><a href="{$cfg.root_url}">&laquo; back</a></p>
+<h1 class="notop">{$error.error|escape}</h1>
+
+<table border="1">
+	<tr>
+		<td>Location:</td>
+		<td>
+{if $error.script && $error.script != 'undefined'}
+			In {$error.script|escape}, line {$error.line}.
+{else}
+			Inline code, line {$error.line}.
+{/if}
+		</td>
+	</tr>
+	<tr>
+		<td>Instances:</td>
+		<td>
+			Seen {$error.num_logged|number_format} times, most recently {'Y-m-d H:i:s'|date:$error.date_latest}
+		</td>
+	</tr>
+	<tr>
+		<td>Browsers:</td>
+		<td>
+{if !$summary.ua_simple_more}
+			{foreach from=$summary.ua_simple item='str' name='uas'}
+				{$str|escape}{if !$smarty.foreach.uas.last},{/if}
+			{/foreach}
+{elseif !$summary.ua_agents_more}
+			Multiple versions of
+			{foreach from=$summary.ua_agents item='str'}
+				{$str|escape}{if !$smarty.foreach.uas.last},{/if}
+			{/foreach}
+{else}
+			Many, including:
+			{foreach from=$summary.ua_simple item='str' name='uas'}
+				{$str|escape}{if !$smarty.foreach.uas.last},{/if}
+			{/foreach}
+{/if}
+		</td>
+	</tr>
+	<tr>
+		<td>Pages:</td>
+		<td>
+{foreach from=$summary.pages item='row'}
+			({$row.num|number_format}) <a href="{$row.url|escape}">{$row.url|escape}</a><br />
+{/foreach}
+{if $summary.pages_more}
+			And more&hellip;
+{/if}
+		</td>
+	</tr>
+	<tr>
+		<td>User Agents:</td>
+		<td>
+{foreach from=$summary.agents item='row'}
+			({$row.num|number_format}) {$row.ua|escape}<br />
+{/foreach}
+{if $summary.agents_more}
+			And more&hellip;
+{/if}
+		</td>
+	</tr>
+</table>
+
+<h2>Recent Instances</h2>
+
+<table border="1">
+{foreach from=$recent item='row'}
+	<tr>
+		<td rowspan="{if $row.stacktrace}5{else}4{/if}">{'Y-m-d H:i:s'|date:$row.date_logged}</td>
+		<td><a href="{$row.url|escape}">{$row.url|escape}</a></td>
+	</tr>
+	<tr>
+		<td>
+{if $row.before_load}
+			Before page load
+{else}
+			After page load
+{/if}
+		</td>
+	</tr>
+{if $row.stacktrace}
+	<tr>
+		<td>Stacktrace: {$row.stacktrace|escape}</td>
+	</tr>
+{/if}
+	<tr>
+		<td>{$row.ua|escape}</td>
+	</tr>
+	<tr>
+		<td>IP: {$row.client_ip|escape}, BCookie: {$row.user_bcookie}, User: {$row.user_id}</td>
+	</tr>
+{/foreach}
+</table>
+
+
+{include file='inc_foot.txt'}

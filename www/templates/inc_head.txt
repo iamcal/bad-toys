@@ -1,0 +1,54 @@
+{utf8_headers}<!DOCTYPE html> 
+<html>
+<head>
+<title>{if $title}{$title|escape} | {/if}Bad Toys</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>{literal}
+
+body {
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	text-align: center;
+}
+
+.main {
+	max-width: 960px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+.error a {
+	font-size: 18px;
+	color: #0085CF;
+}
+
+.num-errors {
+	font-size: 22px;
+	font-weight: bold;
+	text-align: center;
+}
+
+table.errors td {
+	font-size: 13px;
+	color: #666;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+p.topnav {
+	padding: 0;
+	margin: 10px;
+	font-size: 12px;
+}
+
+h1.notop {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+</style>{/literal}
+</head>
+<body>
+
+<div class="main">
