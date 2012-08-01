@@ -1,0 +1,9 @@
+<?
+	$GLOBALS['cfg'] = array();
+
+	$GLOBALS['cfg']['db_main'] = array(
+		'host'	=> 'HOST',
+		'user'	=> 'USER',
+		'pass'	=> 'PASS',
+		'name'	=> 'DB-NAME',
+	);
