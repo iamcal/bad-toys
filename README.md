@@ -23,3 +23,11 @@ Just copy and paste the contents of `badtoys.js` into a `&lt;script&gt;` tag _be
 any other scripts on your page. You can use Google's Closure Compile to make it small:
 
 * http://closure-compiler.appspot.com/home
+
+
+## Browser documentation
+
+* Gecko: https://developer.mozilla.org/en/DOM/window.onerror
+* Opera: http://dev.opera.com/articles/view/better-error-handling-with-window-onerror/
+* W3C: http://www.w3.org/wiki/DOM/window.onerror
+* IE: http://msdn.microsoft.com/en-us/library/ie/cc197053(v=vs.85).aspx
