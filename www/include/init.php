@@ -20,6 +20,7 @@
 	loadlib('log');
 	loadlib('db');
 	loadlib('smarty');
+	loadlib('utf8');
 
 	function dumper($foo){
 		echo "<pre style=\"text-align: left;\">";
