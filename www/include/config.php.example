@@ -7,3 +7,8 @@
 		'pass'	=> 'PASS',
 		'name'	=> 'DB-NAME',
 	);
+
+	$GLOBALS['cfg']['smarty_template_dir'] = FLAMEWORK_INCLUDE_DIR."../templates/";
+	$GLOBALS['cfg']['smarty_compile_dir'] = FLAMEWORK_INCLUDE_DIR."../templates_c/";
+	$GLOBALS['cfg']['smarty_compile'] = 1;
+

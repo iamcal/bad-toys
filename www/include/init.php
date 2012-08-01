@@ -14,17 +14,12 @@
 	}
 
 	include(FLAMEWORK_INCLUDE_DIR.'config.php');
+
+	$GLOBALS['cfg']['admin_flags_show_notices'] = !!$_GET['debugsql'];
+
+	loadlib('log');
 	loadlib('db');
-
-
-	function log_error($msg){
-		echo "ERROR: $msg\n";
-	}
-
-	function log_fatal($msg){
-		echo "FATAL ERROR: $msg\n";
-		exit;
-	}
+	loadlib('smarty');
 
 	function dumper($foo){
 		echo "<pre style=\"text-align: left;\">";

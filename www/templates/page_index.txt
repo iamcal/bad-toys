@@ -1,0 +1,13 @@
+INDEX!
+
+<table border="1">
+{foreach from=$rows item='row'}
+        <tr>
+                <td>
+                        <span class="error">{$row.error|escape}</span><br />
+                </td>
+                <td>{$row.num_logged}</td>
+        </tr>
+{/foreach}
+</table>
+
