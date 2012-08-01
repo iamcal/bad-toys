@@ -19,7 +19,7 @@ just inlining the error capturing code completely. By putting the filtering work
 the server side, we can get the entire code down to under 500 bytes, including 
 delaying error processing until after page load.
 
-Just copy and paste the contents of `badtoys.js` into a `&lt;script&gt;` tag _before_
+Just copy and paste the contents of `badtoys.js` into a `<script>` tag _before_
 any other scripts on your page. You can use Google's Closure Compile to make it small:
 
 * http://closure-compiler.appspot.com/home
