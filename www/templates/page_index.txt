@@ -11,6 +11,8 @@
 {/if}
 </p>
 
+<p>Last updated {$index_age}</p>
+
 <table class="errors" width="100%">
 {foreach from=$rows item='row'}
         <tr>
