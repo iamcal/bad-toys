@@ -5,6 +5,14 @@
 
 
 	#
+	# load discard rules
+	#
+
+	$ret = db_fetch("SELECT * FROM js_discards WHERE is_deleted=0");
+	$discard_rules = $ret['rows'];
+
+
+	#
 	# process incoming raw errors
 	#
 
@@ -33,11 +41,19 @@
 		$logged = array();
 		$recent = array();
 		$ids = array();
+		$discard = array();
 
 		$ret = db_fetch("SELECT * FROM js_errors_raw ORDER BY id ASC LIMIT $batch");
 		foreach ($ret['rows'] as $row){
 
 			$checksum = md5("{$row['error']}//{$row['script']}//{$row['line']}");
+
+			$ids[] = $row['id'];
+
+			if (should_discard($row)){
+				$discard[$checksum]++;
+				continue;
+			}
 
 			$ua = useragent_decode($row['ua']);
 			$ua_vs = explode('.', $ua['agent_version']);
@@ -70,8 +86,6 @@
 				'user_bcookie'	=> $row['user_bcookie'],
 				'user_id'	=> $row['user_id'],
 			);
-
-			$ids[] = $row['id'];
 		}
 
 
@@ -99,6 +113,11 @@
 			update_summary($checksum);
 		}
 
+		foreach ($discard as $checksum => $num){
+
+			db_write("UPDATE js_errors SET num_discarded=num_discarded+$num WHERE checksum='$checksum'");
+		}
+
 		$flat_ids = implode(',', $ids);
 		db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
 
@@ -121,4 +140,19 @@
 			'num_ua_version'	=> intval($num_ua_version),
 
 		), "checksum='$checksum'");
+	}
+
+
+	function should_discard($row){
+
+		global $discard_rules;
+
+		foreach ($discard_rules as $rule){
+
+			if ($rule['field'] == 'bcookie'){
+				if ($rule['value'] == $row['user_bcookie']) return true;
+			}
+		}
+
+		return false;
 	}
