@@ -17,7 +17,10 @@
 	<tr>
 		<td>Instances:</td>
 		<td>
-			Seen {$error.num_logged|number_format} times, most recently {'Y-m-d H:i:s'|date:$error.date_latest}
+			Seen {$error.num_logged|number_format} times, most recently {'Y-m-d H:i:s'|date:$error.date_latest}<br />
+{if $error.num_discarded}
+			<span style="color: red">Discarded {$error.num_discarded|number_format} times</span>
+{/if}
 		</td>
 	</tr>
 	<tr>
