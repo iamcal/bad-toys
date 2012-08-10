@@ -152,6 +152,9 @@
 			if ($rule['field'] == 'bcookie'){
 				if ($rule['value'] == $row['user_bcookie']) return true;
 			}
+			if ($rule['field'] == 'user_id'){
+				if ($rule['value'] == $row['user_id']) return true;
+			}
 		}
 
 		return false;
