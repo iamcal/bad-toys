@@ -10,3 +10,6 @@ DirectoryIndex index.php
 RewriteEngine on
 
 RewriteRule ^([0-9a-f]{32})/?	error.php?checksum=$1	[L,QSA]
+RewriteRule ^discard/$		discards.php		[L]
+RewriteRule ^discard/(\d+)/$	discard.php?id=$1	[L,QSA]
+RewriteRule ^discard/add/$	discard_add.php		[L]

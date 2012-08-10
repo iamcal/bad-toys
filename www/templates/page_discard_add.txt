@@ -1,0 +1,37 @@
+{include file='inc_head.txt'}
+
+<p class="topnav"><a href="{$cfg.root_url}">&laquo; back</a></p>
+<h1 class="notop">Add Discard Filter</h1>
+
+<p>Add a rule to discard events where <b>{$field_name|escape}</b>=<i>{$field_value|escape}</i>.</p>
+
+<p>
+	This rule currently matches {$num_events|number_format} logged events.
+{if $num_events>$recent_events|@count}
+	Recent examples are shown below.
+{else}
+	These are shown below.
+{/if}
+</p>
+
+<p>
+	Enter the reason for adding this discard rule:
+</p>
+
+<form action="{$cfg.root_url}discard/add/" method="post">
+<input type="hidden" name="{$field_name|escape}" value="{$field_value|escape}" />
+<input type="hidden" name="apply" value="1" />
+
+<p><textarea name="reason" wrap="virtual" style="width: 500px; height: 150px"></textarea></p>
+
+<p><input type="submit" value="Add Rule" /></p>
+
+</form>
+
+
+<h2>Recent matches</h2>
+
+{$recent_events|@dumper}
+
+
+{include file='inc_foot.txt'}
