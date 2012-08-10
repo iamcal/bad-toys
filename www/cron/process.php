@@ -2,6 +2,7 @@
 	include(dirname(__FILE__).'/../include/init.php');
 
 	loadlib('useragent');
+	loadlib('filter');
 
 
 	#
@@ -10,6 +11,7 @@
 
 	$ret = db_fetch("SELECT * FROM js_discards WHERE is_deleted=0");
 	$discard_rules = $ret['rows'];
+	$filter_types = filter_get_types();
 
 
 	#
@@ -146,14 +148,17 @@
 	function should_discard($row){
 
 		global $discard_rules;
+		global $filter_types;
 
 		foreach ($discard_rules as $rule){
 
-			if ($rule['field'] == 'bcookie'){
-				if ($rule['value'] == $row['user_bcookie']) return true;
+			$filter = $filter_types[$rule['filter']];
+
+			if ($filter['type'] == 'int_match'){
+				if ($rule['value'] == $row[$filter['db_field']]) return true;
 			}
-			if ($rule['field'] == 'user_id'){
-				if ($rule['value'] == $row['user_id']) return true;
+			if ($filter['type'] == 'str_match'){
+				if ($rule['value'] == $row[$filter['db_field']]) return true;
 			}
 		}
 

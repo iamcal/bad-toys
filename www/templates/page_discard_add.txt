@@ -3,13 +3,13 @@
 <p class="topnav"><a href="{$cfg.root_url}">&laquo; back</a></p>
 <h1 class="notop">Add Discard Filter</h1>
 
-<p>Add a rule to discard events where <b>{$field_name|escape}</b>=<i>{$field_value|escape}</i>.</p>
+<p>Add a rule to discard incoming events matching <code><b>{$field_name|escape}</b>({$field_value|escape})</code> ?</p>
 
 <p>
 	This rule currently matches {$num_events|number_format} logged events.
 {if $num_events>$recent_events|@count}
 	Recent examples are shown below.
-{else}
+{elseif $num_events>0}
 	These are shown below.
 {/if}
 </p>
@@ -28,10 +28,14 @@
 
 </form>
 
+{* ============================================================== *}
+
+{if $recent_events|@count}
 
 <h2>Recent matches</h2>
 
 {$recent_events|@dumper}
 
+{/if}
 
 {include file='inc_foot.txt'}

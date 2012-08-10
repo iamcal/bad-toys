@@ -1,6 +1,8 @@
 <?
 	include('include/init.php');
 
+	loadlib('filter');
+
 
 	#
 	# build a filter based on the field
@@ -10,12 +12,25 @@
 	$field_name = null;
 	$field_value = null;
 
-	if ($_REQUEST['user_id']){
-		$id = intval($_REQUEST['user_id']);
+	$filters = filter_get_types();
 
-		$sql_filter = "user_id={$id}";
-		$field_name = 'user_id';
-		$field_value = $id;
+	foreach ($filters as $k => $row){
+		if ($_REQUEST[$k]){
+
+			if ($row['type'] == 'int_match'){
+
+				$val = intval($_REQUEST[$k]);
+				$sql_filter = "{$row['db_field']}={$val}";
+			}
+			if ($row['type'] == 'str_match'){
+
+				$val = AddSlashes($_REQUEST[$k]);
+				$sql_filter = "{$row['db_field']}='{$val}'";
+			}
+
+			$field_name = $k;
+			$field_value = $_REQUEST[$k];
+		}
 	}
 
 	if (!strlen($sql_filter)){
