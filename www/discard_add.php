@@ -53,7 +53,7 @@
 		$ret = db_insert('js_discards', array(
 			'date_added'	=> time(),
 			'is_deleted'	=> 0,
-			'field'		=> AddSlashes($field_name),
+			'filter'	=> AddSlashes($field_name),
 			'value'		=> AddSlashes($field_value),
 		));
 
