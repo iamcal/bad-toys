@@ -60,6 +60,23 @@
 
 
 	#
+	# matching errors
+	#
+
+	$matching = array();
+	$smarty->assign_by_ref('matching_errors', $matching);
+
+	$error_enc = AddSlashes($error['error']);
+	$ret = db_fetch("SELECT * FROM js_errors WHERE error='$error_enc' AND checksum!='{$error['checksum']}' LIMIT 10");
+	foreach ($ret['rows'] as $row){
+
+		$row['latest'] = db_single(db_fetch("SELECT * FROM js_errors_events WHERE checksum='{$row['checksum']}' ORDER BY date_logged DESC LIMIT 1"));
+
+		$matching[] = $row;
+	}
+
+
+	#
 	# recent events
 	#
 
