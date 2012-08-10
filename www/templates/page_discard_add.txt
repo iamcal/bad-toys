@@ -1,7 +1,4 @@
-{include file='inc_head.txt'}
-
-<p class="topnav"><a href="{$cfg.root_url}">&laquo; back</a></p>
-<h1 class="notop">Add Discard Filter</h1>
+{include file='inc_head.txt' title='Add Discard Filter'}
 
 <p>Add a rule to discard incoming events matching <code><b>{$field_name|escape}</b>({$field_value|escape})</code> ?</p>
 

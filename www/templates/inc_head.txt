@@ -1,7 +1,7 @@
 {utf8_headers}<!DOCTYPE html> 
 <html>
 <head>
-<title>{if $title}{$title|escape} | {/if}Bad Toys</title>
+<title>{if $title && $nav!='home'}{$title|escape} | {/if}Bad Toys</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>{literal}
 
@@ -42,9 +42,31 @@ p.topnav {
 	font-size: 12px;
 }
 
-h1.notop {
-	padding-top: 0;
-	margin-top: 0;
+h1 {
+	padding-bottom: 0;
+	margin-bottom: 8px;
+}
+
+.nav {
+	font-size: 12px;
+	margin-bottom: 1em;
+}
+
+.nav a {
+	text-decoration: none;
+}
+
+.nav a.on {
+	font-weight: bold;
+}
+
+.nav a:hover {
+	text-decoration: underline;
+}
+
+.filters {
+	background-color: #eee;
+	padding: 4px;
 }
 
 </style>{/literal}
@@ -52,3 +74,11 @@ h1.notop {
 <body>
 
 <div class="main">
+
+	<h1>{$title|escape}</h1>
+
+	<div class="nav">
+		<a href="{$cfg.root_url}"{if $nav=='home'} class="on"{/if}>Errors</a>
+		|
+		<a href="{$cfg.root_url}discard/"{if $nav=='discard'} class="on"{/if}>Discard Filters</a>
+	</div>

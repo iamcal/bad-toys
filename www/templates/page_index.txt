@@ -1,17 +1,22 @@
-{include file='inc_head.txt'}
+{include file='inc_head.txt' title='Bad Toys' nav='home'}
 
-<h1>Bad Toys</h1>
+<div class="filters">
 
-<p>
-	Sort:
+	<div style=" float: left">
+		Last updated {$index_age}
+	</div>
+
+	<div style="float: right">
+		Sort:
 {if $smarty.get.recent}
-	<b>Recent</b> | <a href="{$cfg.root_url}">Common</a>
+		<b>Recent</b> | <a href="{$cfg.root_url}">Common</a>
 {else}
-	<a href="{$cfg.root_url}?recent=1">Recent</a> | <b>Common</b>
+		<a href="{$cfg.root_url}?recent=1">Recent</a> | <b>Common</b>
 {/if}
-</p>
+	</div>
 
-<p>Last updated {$index_age}</p>
+	&nbsp;
+</div>
 
 <table class="errors" width="100%">
 {foreach from=$rows item='row'}
