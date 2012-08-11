@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bad-toys by iamcal</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Bad-toys</h1>
+        <p>Capture client-side Javascript errors in the wild</p>
+
+        <p class="view"><a href="https://github.com/iamcal/bad-toys">View the Project on GitHub <small>iamcal/bad-toys</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/iamcal/bad-toys/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/iamcal/bad-toys/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/iamcal/bad-toys">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>bad-toys - capture client-side Javascript errors in the wild</h1>
+
+<h2>Logging browser errors</h2>
+
+<p>For some background:</p>
+
+<ul>
+<li><a href="http://errorception.com/">http://errorception.com/</a></li>
+<li><a href="http://blog.pamelafox.org/2011/10/client-side-error-logging.html">http://blog.pamelafox.org/2011/10/client-side-error-logging.html</a></li>
+<li><a href="https://gist.github.com/1878283">https://gist.github.com/1878283</a></li>
+<li><a href="http://blog.protonet.info/post/9620971736/exception-notifier-javascript">http://blog.protonet.info/post/9620971736/exception-notifier-javascript</a></li>
+</ul><p>Errorception is a great tool, but with some downsides. It relies on a third party,
+you can't export your logs and while it's fast, it's slower than it needs to be. It
+uses an async script load just like Google Analytics, mainly so that they can change
+the error processing code without users having to update the embedded JS. This is
+not needed if you control all the code yourself.</p>
+
+<p>Rather than going for the post-load async script loading, I've taken the approach of
+just inlining the error capturing code completely. By putting the filtering work on 
+the server side, we can get the entire code down to under 500 bytes, including 
+delaying error processing until after page load.</p>
+
+<h2>Usage</h2>
+
+<p>Copy and paste the contents of <code>badtoys.js</code> into a <code>&lt;script&gt;</code> tag <em>before</em>
+any other scripts on your page. You can use Google's Closure Compile to make it small:</p>
+
+<ul>
+<li><a href="http://closure-compiler.appspot.com/home">http://closure-compiler.appspot.com/home</a></li>
+</ul><p>You will need to modify the storage function to post data to your own collection
+endpoint (instead of <code>/jse/</code>). <code>capture.php</code> gives a simple example that logs the 
+information from the browser adding some environment info (time, IP, User Agent) 
+and cookie info. This is a good place to implement filtering for events you know 
+you wont ever care about (like Facebook or Twitter widgets). You can easily port 
+this to your own language or framework.</p>
+
+<p>The webapp inside <code>www/</code> is for analysing and browsing the errors. It is a work in
+progress.</p>
+
+<h2>Browser documentation</h2>
+
+<ul>
+<li>Gecko: <a href="https://developer.mozilla.org/en/DOM/window.onerror">https://developer.mozilla.org/en/DOM/window.onerror</a>
+</li>
+<li>Opera: <a href="http://dev.opera.com/articles/view/better-error-handling-with-window-onerror/">http://dev.opera.com/articles/view/better-error-handling-with-window-onerror/</a>
+</li>
+<li>W3C: <a href="http://www.w3.org/wiki/DOM/window.onerror">http://www.w3.org/wiki/DOM/window.onerror</a>
+</li>
+<li>IE: <a href="http://msdn.microsoft.com/en-us/library/ie/cc197053(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/ie/cc197053(v=vs.85).aspx</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/iamcal">iamcal</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
