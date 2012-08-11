@@ -25,6 +25,9 @@
                 </td>
 		<td>
 			<div class="num-errors">{$row.num_logged|number_format}</div>
+{if $row.num_discarded}
+			<div class="num-discarded">{$row.num_discarded|number_format}</div>
+{/if}
 		</td>
 	</tr>
 {/foreach}

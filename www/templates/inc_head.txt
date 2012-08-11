@@ -28,6 +28,13 @@ body {
 	text-align: center;
 }
 
+.num-discarded {
+	font-size: 12px;
+	font-weight: normal;
+	text-align: center;
+	color: #f44;
+}
+
 table.errors td {
 	font-size: 13px;
 	color: #666;
