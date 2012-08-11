@@ -36,6 +36,8 @@ this to your own language or framework.
 The webapp inside `www/` is for analysing and browsing the errors. It is a work in
 progress.
 
+<a href="https://raw.github.com/iamcal/bad-toys/gh-pages/screenshots/demo_2012-08-10.png"><img src="https://raw.github.com/iamcal/bad-toys/gh-pages/screenshots/demo_2012-08-10.png" width="500" /></a>
+
 
 ## Browser documentation
 
