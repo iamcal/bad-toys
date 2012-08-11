@@ -14,5 +14,11 @@
 			'type'		=> 'str_match',
 		);
 
+		$out['error'] = array(
+			'db_field'	=> 'error',
+			'type'		=> 'str_match',
+			'is_key'	=> true, # part of key table
+		);
+
 		return $out;
 	}

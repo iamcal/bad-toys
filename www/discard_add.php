@@ -11,6 +11,7 @@
 	$sql_filter = null;
 	$field_name = null;
 	$field_value = null;
+	$filter_key = false;
 
 	$filters = filter_get_types();
 
@@ -27,6 +28,7 @@
 				$val = AddSlashes($_REQUEST[$k]);
 				$sql_filter = "{$row['db_field']}='{$val}'";
 			}
+			if ($row['is_key']) $filter_key = true;
 
 			$field_name = $k;
 			$field_value = $_REQUEST[$k];
@@ -76,6 +78,16 @@
 	#
 	# fetch some recent matches to show them
 	#
+
+	if ($filter_key){
+
+		$checksums = array();
+
+		$ret = db_fetch("SELECT checksum FROM js_errors WHERE $sql_filter LIMIT 50");
+		foreach ($ret['rows'] as $row) $checksums[] = "'".$row['checksum']."'";
+
+		$sql_filter = "checksum IN (".implode(', ', $checksums).")";
+	}
 
 	list($num) = db_list(db_fetch("SELECT COUNT(*) FROM js_errors_events WHERE $sql_filter"));
 
