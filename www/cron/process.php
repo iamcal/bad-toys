@@ -18,7 +18,7 @@
 	# process incoming raw errors
 	#
 
-	$batch = 100;
+	$batch = 1000;
 
 	echo "Processing logs: ";
 
@@ -159,6 +159,9 @@
 			}
 			if ($filter['type'] == 'str_match'){
 				if ($rule['value'] == $row[$filter['db_field']]) return true;
+			}
+			if ($filter['type'] == 'str_prefix'){
+				if ($rule['value'] == substr($row[$filter['db_field']], 0, strlen($rule['value']))) return true;
 			}
 		}
 

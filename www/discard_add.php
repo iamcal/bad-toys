@@ -28,6 +28,11 @@
 				$val = AddSlashes($_REQUEST[$k]);
 				$sql_filter = "{$row['db_field']}='{$val}'";
 			}
+			if ($row['type'] == 'str_prefix'){
+
+				$val = db_escape_like($_REQUEST[$k]);
+				$sql_filter = "{$row['db_field']} LIKE '{$val}%'";
+			}
 			if ($row['is_key']) $filter_key = true;
 
 			$field_name = $k;

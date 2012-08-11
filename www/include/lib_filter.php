@@ -20,5 +20,11 @@
 			'is_key'	=> true, # part of key table
 		);
 
+		$out['script_prefix'] = array(
+			'db_field'	=> 'script',
+			'type'		=> 'str_prefix',
+			'is_key'	=> true,
+		);
+
 		return $out;
 	}
