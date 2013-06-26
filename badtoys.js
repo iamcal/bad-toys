@@ -13,9 +13,33 @@
 	var page_loaded = 0;
 
 	var href = window.location.href;
+
+	// stringify & encode
 	var euc = function(s){
-		return (s == undefined) ? '' : encodeURIComponent((""+s).substr(0,255));
+		return (s == undefined) ? '' : encodeURIComponent(""+s);
 	}
+
+	// send error via HTTP GET
+	var get = function(args){
+
+		var url = "/jse?";
+		url += '_='+(new Date().getTime()); // c-c-c-cache breaker
+		for (var i in args)
+			url += '&'+i+'='+euc(args[i]).substr(0,255);
+		new Image().src=url;
+	};
+
+	// send error via HTTP POST
+	var post = function(args){
+
+		var p = [];
+		for (i in args) p.push(i+'='+euc(args[i]));
+
+		var req = new XMLHttpRequest();
+		req.open('POST', '/jse', 1);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		req.send(p.join('&'));
+	};
 
 	// function for processing errors
 	var report = function(args){
@@ -29,19 +53,23 @@
 			msg = 'unknown:' + (typeof msg);
 		}
 
-		var url = "/jse/?";
-		url += '_='+(new Date().getTime()); // c-c-c-cache breaker
-		url += '&e='+euc(msg);
-		url += '&u='+euc(args[1] == href ? '' : args[1]);
-		url += '&l='+euc(args[2]);
-		url += '&h='+euc(href);
-		url += '&pl='+page_loaded;
+		var p = {
+			'e' : msg,
+			'u' : args[1] == href ? '' : args[1],
+			'l' : args[2],
+			'h' : href,
+			'pl' : page_loaded,
+		};
+
 		if (window.printStackTrace){
 			try {
-				url += '&s='+euc(printStackTrace());
+				p.s = printStackTrace();
 			}catch(e){}
 		}
-		new Image().src=url;
+
+		// send to server (delete one of these!)
+		get(p);
+		//post(p);
 	};
 
 	var startup = function(){
