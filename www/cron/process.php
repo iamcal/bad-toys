@@ -85,7 +85,7 @@
 				'ua_agent'	=> AddSlashes($ua_a),
 				'ua_simple'	=> AddSlashes($ua_simple),
 				'client_ip'	=> AddSlashes($row['client_ip']),
-				'user_bcookie'	=> $row['user_bcookie'],
+				'team_id'	=> $row['team_id'],
 				'user_id'	=> $row['user_id'],
 			);
 		}
@@ -120,8 +120,10 @@
 			db_write("UPDATE js_errors SET num_discarded=num_discarded+$num WHERE checksum='$checksum'");
 		}
 
-		$flat_ids = implode(',', $ids);
-		db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
+		if (count($ids)){
+			$flat_ids = implode(',', $ids);
+			#db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
+		}
 
 		return count($ids);
 	}
