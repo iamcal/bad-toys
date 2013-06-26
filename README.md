@@ -27,7 +27,11 @@ any other scripts on your page. You can use Google's Closure Compile to make it 
 * http://closure-compiler.appspot.com/home
 
 You will need to modify the storage function to post data to your own collection
-endpoint (instead of `/jse/`). `capture.php` gives a simple example that logs the 
+endpoint (instead of `/jse`). The script is also set up to submit errors via an
+HTTP GET, but values are truncated to 255 characters. To store longer errors (like
+large stack traces), comment out `get()` and uncomment `post()`.
+
+`capture.php` gives a simple example that logs the 
 information from the browser adding some environment info (time, IP, User Agent) 
 and cookie info. This is a good place to implement filtering for events you know 
 you wont ever care about (like Facebook or Twitter widgets). You can easily port 
