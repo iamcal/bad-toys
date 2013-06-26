@@ -58,7 +58,7 @@
 			'u' : args[1] == href ? '' : args[1],
 			'l' : args[2],
 			'h' : href,
-			'pl' : page_loaded,
+			'pl' : page_loaded
 		};
 
 		if (window.printStackTrace){
