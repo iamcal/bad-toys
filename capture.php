@@ -21,12 +21,12 @@
 
 	db_insert_logs('js_errors_raw', array(
 		'date_logged'	=> time(),
-		'error'		=> AddSlashes($_GET['e']),
-		'script'	=> AddSlashes($_GET['u']),
-		'line'		=> AddSlashes($_GET['l']),
-		'url'		=> AddSlashes($_GET['h']),
-		'stacktrace'	=> AddSlashes($_GET['s']),
-		'before_load'	=> $_GET['pl'] ? 1 : 0,
+		'error'		=> AddSlashes($_REQUEST['e']),
+		'script'	=> AddSlashes($_REQUEST['u']),
+		'line'		=> AddSlashes($_REQUEST['l']),
+		'url'		=> AddSlashes($_REQUEST['h']),
+		'stacktrace'	=> AddSlashes($_REQUEST['s']),
+		'before_load'	=> $_REQUEST['pl'] ? 1 : 0,
 		'ua'		=> AddSlashes($_SERVER['HTTP_USER_AGENT']),
 		'client_ip'	=> AddSlashes($client_ip),
 		'user_bcookie'	=> AddSlashes($b_cookie),
