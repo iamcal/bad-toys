@@ -103,7 +103,7 @@
 		<td>{$row.ua|escape}</td>
 	</tr>
 	<tr>
-		<td>IP: {$row.client_ip|escape}, BCookie: {$row.user_bcookie}, User: {$row.user_id}</td>
+		<td>IP: {$row.client_ip|escape}, Team: {$row.team_id}, User: {$row.user_id}</td>
 	</tr>
 {/foreach}
 </table>
