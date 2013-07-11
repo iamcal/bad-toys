@@ -122,7 +122,7 @@
 
 		if (count($ids)){
 			$flat_ids = implode(',', $ids);
-			#db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
+			db_write("DELETE FROM js_errors_raw WHERE id IN ($flat_ids)");
 		}
 
 		return count($ids);
