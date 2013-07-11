@@ -2,7 +2,7 @@
 {foreach from=$rows item='row'}
         <tr>
                 <td>
-                        <span class="error"><a href="{$cfg.root_url}{$row.checksum}/">{$row.error|escape}</a></span><br />
+                        <span class="error"><a href="{$cfg.root_url}{$row.checksum}/">{$row.error|escape|default:'<i>no error message</i>'}</a></span><br />
 {if $row.script && $row.script != 'undefined'}
 			In {$row.script|escape}, line {$row.line}.
 {else}
