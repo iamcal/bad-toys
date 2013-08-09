@@ -18,7 +18,7 @@
 	# process incoming raw errors
 	#
 
-	$batch = 1000;
+	$batch = 10000;
 
 	echo "Processing logs: ";
 
@@ -95,11 +95,11 @@
 		# insert events
 		#
 
+		$GLOBALS['db_insert_ignore'] = 1;
 		foreach ($events as $row){
 			db_insert('js_errors_events', $row);
 		}
 
-		$GLOBALS['db_insert_ignore'] = 1;
 		foreach ($errors as $row){
 			db_insert('js_errors', $row);
 		}
